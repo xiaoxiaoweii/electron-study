@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="openBtn">打开图片</button>
+    <img id="images" style="width: 100%;" />
+</body>
+<script>
+    const {
+        dialog
+    } = require('electron').remote
+    var openBtn = document.getElementById('openBtn')
+    openBtn.onclick = function() {
+        dialog.showOpenDialog({
+            title: '请选择图片',
+            defaultPath: 'wallhaven-eym6ek.jpg',
+            filters: [{
+                name: 'jpg',
+                extensions: ['jpg']
+            }],
+            buttonLabel: '打开图片'
+        }).then(result => {
+            let image = document.getElementById('images')
+            image.setAttribute('src', result.filePaths[0])
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+</script>
+
+</html>
